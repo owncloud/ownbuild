@@ -5,12 +5,13 @@ import sys
 
 LOC = Path(__file__).parent.resolve()
 
-def craft(args : [str]):
+def craft(command : [str]):
     args = [sys.executable, str(LOC / "craftmast/CraftMaster.py"),
             "--config", str(LOC / ".appveyor.ini"),
-            "--target", "windows-msvc2017_64-cl",
-            "--variables", f"Root={LOC}", "CiBuild=False",
-            "-c"] + args
+            "--variables", f"Root={LOC}", "CiBuild=False"]
+    if os.name == "nt":
+        args += ["--target", "windows-msvc2017_64-cl"]
+    args += ["-c"] + command
     print(" ".join(args))
     return subprocess.call(args) == 0
 
