@@ -2,18 +2,23 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import urllib.request
 
 LOC = Path(__file__).parent.resolve()
+CONFIG = (LOC / ".appveyor.ini")
 
 def craft(command : [str]):
     args = [sys.executable, str(LOC / "craftmast/CraftMaster.py"),
-            "--config", str(LOC / ".appveyor.ini"),
+            "--config", str(CONFIG),
             "--variables", f"Root={LOC}", "CiBuild=False"]
     if os.name == "nt":
         args += ["--target", "windows-msvc2017_64-cl"]
     args += ["-c"] + command
     print(" ".join(args))
     return subprocess.call(args) == 0
+
+if not CONFIG.exists():
+    urllib.request.urlretrieve("https://raw.githubusercontent.com/owncloud/client/2.6/.appveyor.ini", CONFIG)
 
 if not (LOC / "craftmast").exists():
     if not (subprocess.call(["git", "clone", "git@github.com:KDE/craftmaster.git", str(LOC / "craftmast")]) == 0 and
