@@ -18,7 +18,7 @@ def craft(command : [str]):
     return subprocess.call(args) == 0
 
 if not CONFIG.exists():
-    urllib.request.urlretrieve("https://raw.githubusercontent.com/owncloud/client/2.6/.appveyor.ini", CONFIG)
+    urllib.request.urlretrieve("https://raw.githubusercontent.com/owncloud/client/master/.appveyor.ini", CONFIG)
 
 if not (LOC / "craftmast").exists():
     if not (subprocess.call(["git", "clone", "git@github.com:KDE/craftmaster.git", str(LOC / "craftmast")]) == 0 and
