@@ -11,10 +11,12 @@ class Craft(object):
     def __init__(self, branch: str, target: str):
         self.branch = branch
         self.root = Craft.LOC / branch
-        self.config = self.root / ".appveyor.ini"
+        self.config = self.root / ".craft.ini"
+        self.shelf = self.root / ".craft.shelf"
         self.target = target
 
     def craft(self, command : [str]):
+        command = [str(x) for x in command]
         args = [sys.executable, str(Craft.LOC / "craftmast/CraftMaster.py"),
                 "--config", str(self.config),
                 "--variables", f"Root={self.root}", "CiBuild=False", "--target", self.target, "-c"] + command
@@ -29,12 +31,17 @@ class Craft(object):
 
         if not self.root.exists():
             self.root.mkdir()
-            src = f"https://raw.githubusercontent.com/owncloud/client/{self.branch}/.appveyor.ini"
-            print(f"Download: {src}")
-            urllib.request.urlretrieve(src, self.config)
+            for  f in [".craft.ini", ".craft.shelf"]:
+                src = f"https://raw.githubusercontent.com/owncloud/client/{self.branch}/{f}"
+                dest = self.root / f
+                print(f"Download: {src} to {dest}")
+                try:
+                    urllib.request.urlretrieve(src, dest)
+                except Exception as e:
+                    print(e, file=sys.stderr)
+                    exit(1)
 
-            if not (self.craft(["--add-blueprint-repository", "[git]https://github.com/owncloud/craft-blueprints-owncloud.git"]) and
-                    self.craft(["craft"])):
+            if not self.craft(["--unshelve", self.shelf]):
                 print("Failed to setup craft", file=sys.stderr)
                 exit(1)
 
