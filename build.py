@@ -49,7 +49,7 @@ class Craft(object):
 
     def setup(self):
         if not (Craft.LOC / "craftmast").exists():
-            if not subprocess.call(["git", "clone", "git@github.com:KDE/craftmaster.git", str(Craft.LOC / "craftmast")]) == 0:
+            if not subprocess.call(["git", "clone", "https://invent.kde.org/packaging/craftmaster.git", str(Craft.LOC / "craftmast")]) == 0:
                 exit(1)
 
         if not self.root.exists():
