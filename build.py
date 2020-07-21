@@ -42,7 +42,10 @@ class Craft(object):
         command = [str(x) for x in command]
         args = [sys.executable, str(Craft.LOC / "craftmast/CraftMaster.py"),
                 "--config", str(self.config),
-                "--variables", f"Root={self.root}", "CiBuild=False", "--target", self.target, "-c"] + command
+                "--variables", f"Root={self.root}"
+                             , "CiBuild=False"
+                             , "CreateCache=False",
+                "--target", self.target, "-c"] + command
         print(" ".join(args))
         return subprocess.call(args) == 0
 
