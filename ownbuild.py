@@ -38,14 +38,16 @@ class Craft(object):
         self.shelf = self.root / ".craft.shelf"
         self.target = target
 
-    def craft(self, command : [str]):
-        command = [str(x) for x in command]
+    def craft(self, command : [str], setup=False):
         args = [sys.executable, str(Craft.LOC / "craftmast/CraftMaster.py"),
                 "--config", str(self.config),
                 "--variables", f"Root={self.root}"
                              , "CiBuild=False"
                              , "CreateCache=False",
-                "--target", self.target, "-c"] + command
+                "--target", self.target]
+        if setup:
+            args += ["--setup"]
+        args += ["-c"] + [str(x) for x in command]
         print(" ".join(args))
         return subprocess.call(args) == 0
 
@@ -55,12 +57,15 @@ class Craft(object):
             if not subprocess.call(["git", "clone", "https://invent.kde.org/packaging/craftmaster.git", str(Craft.LOC / "craftmast")]) == 0:
                 exit(1)
 
+        setup = False
         if not self.root.exists():
+            setup = True
             self.root.mkdir()
 
         for  f in [".craft.ini", ".craft.shelf"]:
             dest = self.root / f
             if not dest.exists():
+                setup = True
                 src = f"https://raw.githubusercontent.com/owncloud/client/{self.branch}/{f}"
                 print(f"Download: {src} to {dest}")
                 try:
@@ -68,13 +73,7 @@ class Craft(object):
                 except Exception as e:
                     print(e, file=sys.stderr)
                     exit(1)
-
-        # workaround for old craft versions that do not properly unshelve craft
-        if not self.craft(["craft"]):
-            print("Failed to setup craft", file=sys.stderr)
-            exit(1)
-
-        if not self.craft(["--unshelve", self.shelf]):
+        if not self.craft(["--unshelve", self.shelf], setup=setup):
             print("Failed to setup craft", file=sys.stderr)
             exit(1)
 
