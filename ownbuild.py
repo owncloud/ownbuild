@@ -57,9 +57,11 @@ class Craft(object):
 
         if not self.root.exists():
             self.root.mkdir()
-            for  f in [".craft.ini", ".craft.shelf"]:
+
+        for  f in [".craft.ini", ".craft.shelf"]:
+            dest = self.root / f
+            if not dest.exists():
                 src = f"https://raw.githubusercontent.com/owncloud/client/{self.branch}/{f}"
-                dest = self.root / f
                 print(f"Download: {src} to {dest}")
                 try:
                     urllib.request.urlretrieve(src, dest)
@@ -67,9 +69,15 @@ class Craft(object):
                     print(e, file=sys.stderr)
                     exit(1)
 
-            if not self.craft(["--unshelve", self.shelf]):
-                print("Failed to setup craft", file=sys.stderr)
-                exit(1)
+        # workaround for old craft versions that do not properly unshelve craft
+        if not self.craft(["craft"]):
+            print("Failed to setup craft", file=sys.stderr)
+            exit(1)
+
+        if not self.craft(["--unshelve", self.shelf]):
+            print("Failed to setup craft", file=sys.stderr)
+            exit(1)
+
 
 
 if __name__ == "__main__":
