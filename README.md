@@ -5,6 +5,9 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 # Required dependencies
 - Python 3.6+
 - Git
+## On recent Windows versions
+ - winget install git
+ - winget install python
 
 # Get started
 - `(py.exe|python3) build.py owncloud-client`
