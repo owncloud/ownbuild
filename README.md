@@ -5,9 +5,16 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 # Required dependencies
 - Python 3.6+
 - Git
-## On recent Windows versions
- - winget install git
- - winget install python
+## On Windows
+### Visual Studio 2019
+ Install Visual Studio 2017 build tools and other dependencies
+ - Start `Visual Studio Installer`
+  - Select `Modify`
+  - Select `Individual Components`
+  - Search for `2017 C++ x64` and select it
+  - Select `git`
+  - Select `python2`
+  - Select `python3`
 
 # Get started
 - `(py.exe|python3) build.py owncloud-client`
