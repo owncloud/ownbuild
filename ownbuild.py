@@ -80,7 +80,7 @@ class Craft(object):
 
 
 if __name__ == "__main__":
-    defaultTarget = "windows-msvc2017_64-cl"
+    defaultTarget = "windows-msvc2019_64-cl"
     if os.name != "nt":
         defaultTarget = "macos-64-clang"
     parser = argparse.ArgumentParser(prog="build")
