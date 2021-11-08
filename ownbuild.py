@@ -52,19 +52,19 @@ class Craft(object):
         return subprocess.call(args) == 0
 
 
-    def setup(self):
+    def setup(self, update : bool):
         if not (Craft.LOC / "craftmast").exists():
             if not subprocess.call(["git", "clone", "https://invent.kde.org/packaging/craftmaster.git", str(Craft.LOC / "craftmast")]) == 0:
                 exit(1)
 
-        setup = False
+        setup = update
         if not self.root.exists():
             setup = True
             self.root.mkdir()
 
         for  f in [".craft.ini", ".craft.shelf"]:
             dest = self.root / f
-            if not dest.exists():
+            if not dest.exists() or update:
                 setup = True
                 src = f"https://raw.githubusercontent.com/owncloud/client/{self.branch}/{f}"
                 print(f"Download: {src} to {dest}")
@@ -84,13 +84,14 @@ if __name__ == "__main__":
     if os.name != "nt":
         defaultTarget = "macos-64-clang"
     parser = argparse.ArgumentParser(prog="build")
-    parser.add_argument("--target", action="store", default=defaultTarget)
-    parser.add_argument("--branch", action="store", default="master")
+    parser.add_argument("--target", action="store", default=defaultTarget, help=f"Specify a target to use, default is {defaultTarget!r}, use --target help to print available targets.")
+    parser.add_argument("--branch", action="store", default="master", help="Specify the configuration of the branch to use, default is 'master'.")
+    parser.add_argument("--update", action="store_true", default=False, help="Updates the cache settings for a specified branch.")
     parser.add_argument("args", nargs=argparse.REMAINDER)
 
     args = parser.parse_args()
     craft = Craft(args.branch, args.target)
-    craft.setup()
+    craft.setup(args.update)
     if args.args:
         if args.args[0] == "--":
             args.args.pop(0)
