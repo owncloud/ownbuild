@@ -58,9 +58,10 @@ class Craft(object):
                 exit(1)
 
         setup = update
-        if not self.root.exists():
+        targetDir = self.root / self.target
+        if not targetDir.exists():
             setup = True
-            self.root.mkdir(parents=True)
+            targetDir.mkdir(parents=True)
 
         for  f in [".craft.ini", ".craft.shelf"]:
             dest = self.root / f
