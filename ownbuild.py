@@ -48,7 +48,7 @@ class Craft(object):
         if setup:
             args += ["--setup"]
         args += ["-c"] + [str(x) for x in command]
-        print(" ".join(args))
+        print(" ".join(args), file=sys.stderr)
         return subprocess.call(args) == 0
 
 
@@ -67,7 +67,7 @@ class Craft(object):
             if not dest.exists() or update:
                 setup = True
                 src = f"https://raw.githubusercontent.com/owncloud/client/{self.branch}/{f}"
-                print(f"Download: {src} to {dest}")
+                print(f"Download: {src} to {dest}", file=sys.stderr)
                 try:
                     urllib.request.urlretrieve(src, dest)
                 except Exception as e:
