@@ -1,5 +1,5 @@
 # About
-This repository contains a helper script to mak it easier to setup a ownCloud build environment for ownCloud 2.7 and newer.
+This repository contains a helper script to mak it easier to setup a ownCloud build environment for ownCloud desktop client 2.7 and newer.
 
 
 # Required dependencies
@@ -10,7 +10,7 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
  - Start `Visual Studio Installer`
   - Select `Modify`
   - Select `Desktop development with C++`
-  - Got to `Individual Components`
+  - Go to `Individual Components`
   - Search for `2019 C++ x64` and select it
   - Select `git`
   - Select `python2`
@@ -29,7 +29,7 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 
 
 ## Appendix
-### Run with a specificn target configuration
+### Run with a specific target configuration
 - `(py.exe|python3) ownbuild.py --branch 2.10 --target windows-msvc2019_64-cl`
 ### Query available targets
 - `(py.exe|python3) ownbuild.py --branch 2.10 --target help`
