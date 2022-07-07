@@ -33,3 +33,15 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 - `(py.exe|python3) ownbuild.py --branch 2.10 --target windows-msvc2019_64-cl`
 ### Query available targets
 - `(py.exe|python3) ownbuild.py --branch 2.10 --target help`
+
+
+## On Linux
+
+### With owncloud dependencies:
+
+- `python3 ./ownbuild.py --branch master --target linux-64-gcc owncloud-client`
+- When built, start the client like this: `./master/linux-64-gcc/bin/owncloud -s`
+
+### With system dependencies:
+
+- TODO
