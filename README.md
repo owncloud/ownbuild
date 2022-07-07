@@ -50,4 +50,4 @@ Note:
 
 ### Build the client with system dependencies
 
-- TODO
+- TODO: find the relevant info e.g. docker image from kdeorg/ubuntu-1804-craft
