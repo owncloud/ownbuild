@@ -37,11 +37,17 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 
 ## On Linux
 
-### With owncloud dependencies:
+Note:
+- ownbuild / craft uses cached binary packages from https://download.owncloud.com/desktop/craft/cache/ to speed up the compilation.
+
+#### Prerequisites
+ - `apt install python3 git g++ gcc`
+ 
+### Build the client with owncloud dependencies
 
 - `python3 ./ownbuild.py --branch master --target linux-64-gcc owncloud-client`
 - When built, start the client like this: `./master/linux-64-gcc/bin/owncloud -s`
 
-### With system dependencies:
+### Build the client with system dependencies
 
 - TODO
