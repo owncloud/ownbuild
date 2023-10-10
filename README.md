@@ -6,12 +6,10 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 - https://community.kde.org/Craft#Setting_up_Craft
 ## On Windows
 ### Visual Studio 2022
- Install Visual Studio 2019 build tools and other dependencies
  - Start `Visual Studio Installer`
   - Select `Modify`
   - Select `Desktop development with C++`
   - Go to `Individual Components`
-  - Search for `2019 C++ x64` and select it
   - Select `git`
   - Select `python2`
   - Select `python3`
