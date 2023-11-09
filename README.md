@@ -19,18 +19,18 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 - `(py.exe|python3) ownbuild.py owncloud-client`
 
 ## Build a specific branch
-- `(py.exe|python3) ownbuild.py --branch 2.10 owncloud-client`
+- `(py.exe|python3) ownbuild.py --branch 5 owncloud-client`
 
 ## Use special craft commands
-- `(py.exe|python3) ownbuild.py --branch 2.10 -- --package owncloud-client`
-- `(py.exe|python3) ownbuild.py --branch 2.10 -- --run .\master\windows-msvc2017_64-cl-debug\bin\owncloud.exe`
+- `(py.exe|python3) ownbuild.py --branch 5 -- --package owncloud-client`
+- `(py.exe|python3) ownbuild.py --branch 5 -- --run .\master\windows-cl-msvc2022-x86_64-debug\bin\owncloud.exe`
 
 
 ## Appendix
 ### Run with a specific target configuration
-- `(py.exe|python3) ownbuild.py --branch 2.10 --target windows-msvc2019_64-cl`
+- `(py.exe|python3) ownbuild.py --branch 5 --target windows-cl-msvc2022-x86_64`
 ### Query available targets
-- `(py.exe|python3) ownbuild.py --branch 2.10 --target help`
+- `(py.exe|python3) ownbuild.py --branch 5 --target help`
 
 
 ## On Linux
