@@ -18,8 +18,13 @@ This repository contains a helper script to mak it easier to setup a ownCloud bu
 # Get started
 - `(py.exe|python3) ownbuild.py owncloud-client`
 
-## Build a specific branch
-- `(py.exe|python3) ownbuild.py --branch 5 owncloud-client`
+## Build a specific branch configuration
+This will only affect the version of the dependencies.
+- `(py.exe|python3) ownbuild.py --branch 5 -- owncloud-client`
+
+## Build a specific client tag
+- `(py.exe|python3) ownbuild.py --branch 5 -- --set revision=v5.2.1 owncloud-client`
+- `(py.exe|python3) ownbuild.py --branch 5 -- owncloud-client`
 
 ## Use special craft commands
 - `(py.exe|python3) ownbuild.py --branch 5 -- --package owncloud-client`
